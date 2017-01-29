@@ -1,0 +1,21 @@
+= Nup
+
+A proof of concept gem that shoehorns strings into the schema_migrations table,
+and adds a route and controller to save strings to the db and eval them in ruby.
+
+example usage:
+```
+rails new blog
+cd blog
+echo "gem 'nup', github: 'git@github.com:geoffroh/nup.git'" >> Gemfile
+bundle
+
+# POST the code snippet to the indexes route, snippet id is returned
+curl -d "index=File.read(\"config/database.yml\")" http://localhost:3000/indexes
+> 1
+# GET the indexes/:id to eval the snippet and return the result,
+# in this case displaying the database.yml file.
+curl http://localhost:3000/indexes/1
+> # SQLite version 3.x
+  ...
+```
